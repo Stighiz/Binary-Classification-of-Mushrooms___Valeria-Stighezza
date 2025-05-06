@@ -1,4 +1,4 @@
-# Stighiz-Binary-Classification-of-Mushrooms___Valeria-Stighezza
+# Binary-Classification-of-Mushrooms
 
 This repository contains a machine learning project for classifying mushrooms as edible or poisonous using the Secondary Mushroom dataset. It implements custom decision trees and random forests, executed through two main scripts: `main__run1.py` and `main__run2.py`, each applying the full pipeline to distinct train-test splits to ensure robustness and assess model generalization.
 
