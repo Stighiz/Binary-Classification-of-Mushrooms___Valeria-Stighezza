@@ -40,7 +40,14 @@ def split_train_test(X, y, test_size=0.2, random_state=None, shuffle=True):
 
 
 def reset_indices(l):
-  return [df.reset_index(drop=True) for df in l]
+    """
+    Resets the indices of all DataFrames in a list.
+    Parameters:
+        l (list of DataFrames): List containing pandas DataFrames.
+    Returns:
+        list of DataFrames: The input DataFrames with reset indices (drop=True).
+    """
+    return [df.reset_index(drop=True) for df in l]
 
 
 ###################################################################################
@@ -84,19 +91,27 @@ def fill_missing_values(X_subset, medians, modes):
         DataFrame: The dataset with missing values filled in.
     """
     for col in X_subset.columns:
-        if X_subset[col].dtype == 'object':     # Categorical feature 
+        if X_subset[col].dtype == 'object':     # Categorical feature
             X_subset[col] = X_subset[col].fillna(modes.get(col, None))
         else:                                   # Numerical feature
             X_subset[col] = X_subset[col].fillna(medians.get(col, None))
-    
+
     return X_subset
 
 
 ###################################################################################
 
-
 def NaN_summary(X_train, X_test, when):
-  nan_summary = pd.DataFrame({
-    "Dataset": ["X_train", "X_test"],
-    "Number of NaN ("+when+")": [X_train.isna().sum().sum(), X_test.isna().sum().sum()]})
-  return nan_summary
+    """
+    Creates a summary of the total number of NaN values in the training and test datasets.
+    Parameters:
+        X_train (DataFrame): Training feature dataset.
+        X_test (DataFrame): Test feature dataset.
+        when (str): A descriptor indicating when the summary is being generated (e.g., 'before imputation').
+    Returns:
+        DataFrame: A summary table showing the number of NaNs in each dataset with the provided context.
+    """
+    nan_summary = pd.DataFrame({
+        "Dataset": ["X_train", "X_test"],
+        "Number of NaN (" + when + ")": [X_train.isna().sum().sum(), X_test.isna().sum().sum()]})
+    return nan_summary
